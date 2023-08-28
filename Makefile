@@ -1,17 +1,17 @@
 #:vim noet
 
 #
-# ARM64 docker images, from sameersbn's gitlab/postgresql
+# ARM64 docker image, based on sameersbn's gitlab
 # 
 # 2022-12-28, michael.dinkelaker(at)gmail.com
 #
 # history: 
 # 	2022-12-28, first version gitlab 15.7
-# 	2023-05-31, update for gitlab 16.0.1 (switch to stock pgsql)
-#
+# 	2023-05-31, update for gitlab 16.0.1 (switch to stock pgsql v15)
+#	2023-08-29, public release on github
 
 .SILENT:
-.PHONY: all download patch build clean
+.PHONY: all new download patch build deploy clean
 
 
 PWD	:= $(shell pwd)
