@@ -1,0 +1,44 @@
+version: '2.4'
+
+services:
+  redis:
+    restart: always
+    image: redis:alpine
+    command:
+      - --loglevel warning
+    volumes:
+      - redis-data:/data:Z
+    networks:
+      - backend
+
+  postgresql:
+    restart: always
+    image: postgres:15-alpine
+    volumes:
+      - pgsql-data:/var/lib/postgresql/data
+    environment:
+      - LANG=de_DE.utf8
+      - POSTGRES_USER=gitlab
+      - POSTGRES_PASSWORD=<secret>
+      - POSTGRES_DB=gitlabhq_production
+    networks:
+      - backend
+
+  gitlab:
+    restart: always
+    image: m1d1/gitlab:latest
+    depends_on:
+    - redis
+    - postgresql
+    ports:
+    - "10080:80"
+    - "10022:22"
+    volumes:
+    - ./gitlab:/home/git/data:Z
+    healthcheck:
+      test: ["CMD", "/usr/local/sbin/healthcheck"]
+      interval: 5m
+      timeout: 10s
+      retries: 3
+      start_period: 5m
+
