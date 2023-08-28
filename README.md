@@ -14,7 +14,7 @@ All the work is done by Sameer Naik and contributors.
 check Makefile deploy rule
 
 ## Usage
-- **make all** (build docker image **m1d1/gitlab:latest **)
+- **make all** (build docker image **m1d1/gitlab:latest**)
 - **make clean** (required to run before the next **make all**)
 - **make new** (alias for: make clean;make all)
 - **make deploy** (start docker-compose.yml in /srv/docker/gitlab)
